@@ -8,8 +8,8 @@
 </head>
 <body>
     <ul id="menu">
-        <li> <a href="index.html"> Home</a></li>
-        <li> <a href="contato.html"> Contato</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="contato.html">Contato</a></li>
     </ul>
 
     <button onclick="hello()">Clica em mim</button>
@@ -18,11 +18,86 @@
  
     <form>
         <label for="nome">Nome:</label><br>
-        <input id="nome" type="text" name="nome">
-        <button type="submit">Enviar</button>
+        <input id="nome" type="text" name="nome" onkeyup="validaNome()">
+        <div id="txtNome"></div>
+        <br>
+        <label for="email">E-mail:</label><br>
+        <input id="email" type="text" name="email" onkeyup="validaEmail()">
+        <div id="txtEmail"></div>
+        <br>
+        <br>
+        <label for="assunto">Assunto:</label><br>
+        <textarea id="assunto" type="text" name="assunto" cols="60" rows="5" onkeyup="validaAssunto()"></textarea>
+        <div id="txtAssunto"></div>
+        <br>
+        <button type="button" onclick="enviar()">Enviar</button>
     </form>
 
-    <script src="assets/fundamentos-web/javascript/scripts.js">
+    <script>
+    function hello(){
+        alert("Hello World")
+    }
+
+    let nome = window.document.getElementById("nome"); // conectada ao input
+    let email = document.querySelector("#email")
+    let assunto = document.querySelector("#assunto")
+    let nomeOk = false
+    let emailOk = false
+    let assuntoOk = false
+
+    nome.style.width = "100%"
+    email.style.width = "100%"
+
+    function exibeNome(){
+        alert(nome.value);
+    }
+
+    function validaNome(){
+        let txt = document.querySelector("#txtNome")
+        if (nome.value.length < 3) {
+            txt.innerHTML = "Nome inválido"
+            txt.style.color = "red"
+        } else {
+            txt.innerHTML = "Nome válido"
+            txt.style.color = "green"
+            nomeOk = true
+        }
+    }
+
+    function validaEmail () {
+        let txtEmail = document.querySelector("#txtEmail")
+
+        if (email.value.indexOf("@") == -1 || email.value.indexOf(".") == -1) {
+            txtEmail.innerHTML = "E-mail inválido"
+            txtEmail.style.color = "red"
+        } else {
+            txtEmail.innerHTML = "E-mail válido"
+            txtEmail.style.color = "green"
+            emailOk = true
+        }
+    }
+
+    function validaAssunto () {
+        let txtAssunto = document.querySelector("#txtAssunto")
+
+        if (assunto.value.length >= 100) {
+            txtAssunto.innerHTML = "Texto muito grande, digite no máximo 100 caracteres"
+            txtAssunto.style.color = "red"
+            txtAssunto.style.display = "block"
+        } else {
+            txtAssunto.style.display = "none"
+            assuntoOk = true
+        }
+    }
+
+    function enviar() {
+        if (nomeOk == true && emailOk == true && assuntoOk == true) {
+            alert ("Formulário enviado com sucesso!")
+        } else {
+            alert ("Preencha o formulário corretamente antes de enviar...")
+        }
+    }
+    console.log(nome.value);
     </script>
 </body>
 </html>
